@@ -1,0 +1,4 @@
+<launch>
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find auto_nav)/map/map.yaml"/>
+    <node pkg="tf" type="static_transform_publisher" name="body2livox" args="0 0 0 0 0 0 /body /livox_frame 100" />
+</launch>

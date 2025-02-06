@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="TX" type="TX" name="Communication" output="screen"/>
+</launch>

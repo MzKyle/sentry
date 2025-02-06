@@ -1,0 +1,53 @@
+<launch>
+    <!-- <node pkg="tf" type="static_transform_publisher" name="map2odom" args="0 0 0 0 0 0 /map /camera_init 100" /> -->
+
+    <!-- <node pkg="tf" type="static_transform_publisher" name="map2cam" args="0 0 0 0 0 0 /map /camera_init 100" />
+
+    <node pkg="tf" type="static_transform_publisher" name="cam2base" args="0 0 0 0 0 0 /camera_init /base_link 100" />
+
+    <node pkg="tf" type="static_transform_publisher" name="base2body" args="0 0 0 0 0 0 /base_link /body 100" />
+
+    <node pkg="tf" type="static_transform_publisher" name="base2basefoot" args="0 0 0 0 0 0 /body /base_footprint 100" />
+
+    <node pkg="tf" type="static_transform_publisher" name="basefoot2livox" args="0 0 0 0 0 0 /base_footprint /livox_frame 100" /> -->
+
+     
+
+
+
+
+
+
+    <!-- <node pkg="tf" type="static_transform_publisher" name="broadcaster" args="0 0 0 0 0 0 /livox_frame /camera_init 100" /> -->
+
+    <node pkg="octomap_server" type= "octomap_server_node" name= "octomap_server" >
+
+    <!-- resolution in meters per pixel -->
+    <param name="resolution" value="0.05" />
+
+        <param name="odom_frame" value="camera_init"/>
+    <!-- name of the fixed frame, needs to be " /map" for SLAM -->
+    <param name="frame_id" type="string" value="livox_frame" />
+
+    <!-- max range 1 depth resolution of the kinect in meter -->
+    <param name= "sensor_model/max_range" value="1000.0" />
+
+    <param name="latch" value="true" />
+
+    <!-- max/min height for occupancy map, should be in meters -->
+    <param name= "pointcloud_max_z" value="1" />
+
+    <param name= "pointcloud_min_z" value="-1" />
+
+    <param name="filter_ ground" value="true" />
+    
+    <param name="ground_filter/distance" value="0.05" />
+    
+    <param name="ground_filter/angle" value="0.2" />
+
+    <!--<param name="ground_ filter /distance" value="1" /> -->
+    <!-- topic from where pointcloud2 messages are subscribed -->
+    <remap from="cloud_in" to="/livox/points" />
+
+    </node>
+</launch>
