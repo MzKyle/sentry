@@ -4,4 +4,5 @@ geometry_msgs/Point position
 float64 v_yaw
 float64 pitch
 float64 yaw
-
+float64 vx
+float64 vy

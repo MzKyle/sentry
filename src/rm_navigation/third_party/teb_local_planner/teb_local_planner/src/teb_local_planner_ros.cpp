@@ -84,19 +84,19 @@ void TebLocalPlannerROS::initialize(nav2_util::LifecycleNode::SharedPtr node)
 {
   // check if the plugin is already initialized
   if(!initialized_)
-  {	
+  {
     // declare parameters (ros2-dashing)
-    intra_proc_node_.reset( 
+    intra_proc_node_.reset(
             new rclcpp::Node("costmap_converter", node->get_namespace(), 
               rclcpp::NodeOptions()));
     cfg_->declareParameters(node, name_);
 
     // get parameters of TebConfig via the nodehandle and override the default config
     cfg_->loadRosParamFromNodeHandle(node, name_);
-    
+
     // reserve some memory for obstacles
     obstacles_.reserve(500);
-        
+
     // create the planner instance
     if (cfg_->hcp.enable_homotopy_class_planning)
     {
@@ -108,10 +108,10 @@ void TebLocalPlannerROS::initialize(nav2_util::LifecycleNode::SharedPtr node)
       planner_ = PlannerInterfacePtr(new TebOptimalPlanner(node, *cfg_.get(), &obstacles_, visualization_, &via_points_));
       RCLCPP_INFO(logger_, "Parallel planning in distinctive topologies disabled.");
     }
-    
+
     // init other variables
     costmap_ = costmap_ros_->getCostmap(); // locking should be done in MoveBase.
-    
+
     costmap_model_ = std::make_shared<dwb_critics::ObstacleFootprintCritic>();
     std::string costmap_model_name("costmap_model");
     costmap_model_->initialize(node, costmap_model_name, name_, costmap_ros_);
@@ -146,8 +146,7 @@ void TebLocalPlannerROS::initialize(nav2_util::LifecycleNode::SharedPtr node)
     else {
       RCLCPP_INFO(logger_, "No costmap conversion plugin specified. All occupied costmap cells are treaten as point obstacles.");
     }
-  
-    
+
     // Get footprint of the robot and minimum and maximum distance from the center of the robot to its footprint vertices.
     footprint_spec_ = costmap_ros_->getRobotFootprint();
     nav2_costmap_2d::calculateMinAndMaxDistances(footprint_spec_, robot_inscribed_radius_, robot_circumscribed_radius);

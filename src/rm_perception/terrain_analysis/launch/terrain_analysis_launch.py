@@ -31,10 +31,10 @@ def generate_launch_description():
             {
                 # 传感器坐标系名称
                 "sensor_frame": "livox_frame",
-                # 点云降采样的大小（米）
-                "scan_voxel_size": 0.15,
+                # 点云降采样大小（米）
+                "scan_voxel_size": 0.05,
                 # 点云保留时间（秒）
-                "decay_time": 0.05,
+                "decay_time": 0.5,
                 # 车辆点云的有效检测距离（米）
                 "no_decay_dis": 0.0,
                 # 点云清除距离阈值（米）
@@ -56,7 +56,7 @@ def generate_launch_description():
                 # 动态障碍物最小检测角度（度）
                 "min_dy_obs_angle": 0.0,
                 # 相对于车体的地平面高度（米）
-                "min_dy_obs_rel_z": -0.4,
+                "min_dy_obs_rel_z": -0.3,
                 # 动态障碍物绝对Z轴阈值（米）
                 "abs_dy_obs_rel_z_thre": 0.2,
                 # 最小垂直视场角（度）
@@ -80,7 +80,7 @@ def generate_launch_description():
                 # 点云裁剪的最小相对高度（米）
                 "min_rel_z": -1.5,
                 # 点云裁剪的最大相对高度（米）
-                "max_rel_z": 0.3,
+                "max_rel_z": 0.5,
                 # 点云的高度与距离比
                 "dis_ratio_z": 0.2,
             },

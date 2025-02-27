@@ -44,9 +44,13 @@ bt_navigator:
     use_sim_time: False
     global_frame: map
     robot_base_frame: base_link
-    odom_topic: /livox/imu
+    odom_topic: odometry
     bt_loop_duration: 10
-    default_server_timeout: 20
+    default_server_timeout: 100
+    wait_for_server_timeout: 1000
+    
+    # default_nav_to_pose_bt_xml: $(find-pkg-share rm_navigation)/behavior_trees/navigate_to_pose_w_replanning_and_recovery.xml
+    # default_nav_through_poses_bt_xml: $(find-pkg-share rm_navigation)/behavior_trees/navigate_through_poses_w_replanning_and_recovery.xml
     # 'default_nav_through_poses_bt_xml' and 'default_nav_to_pose_bt_xml' are use defaults:
     # nav2_bt_navigator/navigate_to_pose_w_replanning_and_recovery.xml
     # nav2_bt_navigator/navigate_through_poses_w_replanning_and_recovery.xml
@@ -150,9 +154,9 @@ controller_server:
       exact_arc_length: False
       feasibility_check_no_poses: 0
       publish_feedback: False
-          
+
       # Robot
-              
+
       max_vel_x: 1.0
       max_vel_x_backwards: 0.25
       max_vel_y: 0.25
@@ -164,14 +168,14 @@ controller_server:
       footprint_model:
         type: "point"
       # GoalTolerance
-          
+
       xy_goal_tolerance: 0.2
       yaw_goal_tolerance: 3.14
       free_goal_vel: False
       complete_global_plan: True
-          
+
       # Obstacles
-          
+
       min_obstacle_dist: 0.4 # This value must also include our robot radius, since footprint_model is set to "point".
       inflation_dist: 0.4
       include_costmap_obstacles: True
@@ -181,7 +185,7 @@ controller_server:
       costmap_converter_spin_thread: True
       costmap_converter_rate: 5
       # Optimization
-          
+
       no_inner_iterations: 5
       no_outer_iterations: 4
       optimization_activate: True
@@ -213,7 +217,7 @@ controller_server:
       selection_prefer_initial_plan: 0.9
       selection_obst_cost_scale: 1.0
       selection_alternative_time_cost: False
-      
+
       roadmap_graph_no_samples: 15
       roadmap_graph_area_width: 5.0
       roadmap_graph_area_length_scale: 1.0
@@ -227,7 +231,7 @@ controller_server:
       visualize_hc_graph: False
       visualize_with_time_as_z_axis_scale: 0.0
       # Recovery
-      
+
       shrink_horizon_backup: True
       shrink_horizon_min_duration: 10.0
       oscillation_recovery: True
@@ -235,7 +239,7 @@ controller_server:
       oscillation_omega_eps: 0.1
       oscillation_recovery_min_duration: 10.0
       oscillation_filter_duration: 10.0
-    
+
 
 
 local_costmap:

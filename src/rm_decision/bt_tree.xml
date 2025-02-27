@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4"
+      main_tree_to_execute="BehaviorTree">
+    <Blackboard 
+         central_buff="{'header':{'frame_id':'map'}, 'pose':{'position':{'x': 1.0, 'y': 0.0, 'z': 0.0}, 'orientation':{'x': 0, 'y': 0, 'z': 0, 'w': 0}}}"
+         supply_zone="{'header':{'frame_id':'map'}, 'pose':{'position':{'x':4.0, 'y': 0.0, 'z': 0.0}, 'orientation':{'x': 0, 'y': 0, 'z': 0, 'w': 0}}}">
+    </Blackboard>
+  <BehaviorTree ID="BehaviorTree">
+    <Sequence name="UL检测状态">
+      <referee />
+      <Sequence name="检测自身血量">
+        <Condition ID="CheckSentryHP" sentry_hp="{sentry_hp}" threshold="60"/>
+        <to_goal position="{supply_zone}"/>
+      </Sequence>
+      <Sequence name="检测17mm弹丸数量">
+        <Condition ID="CheckAllowance17mm" allowance_17mm="{projectile_allowance_17mm}" threshold="20"/>
+        <to_goal position="{supply_zone}"/>
+      </Sequence>
+      <Sequence name="导航占点">
+        <to_goal position="{central_buff}"/>
+      </Sequence>
+    </Sequence>
+  </BehaviorTree>
+
+  <TreeNodesModel>
+    <Action ID="to_goal" editable="true">
+      <input_port name="position" default="{position}"/>
+    </Action>
+    <Action ID="referee" editable="true">
+      <output_port name="sentry_hp" default="{sentry_hp}"/>
+      <output_port name="projectile_allowance_17mm" default="{projectile_allowance_17mm}"/>
+      <output_port name="rfid" default="{rfid}"/>
+      <output_port name="base_hp" default="{base_hp}"/>
+      <output_port name="outpost_hp" default="{outpost_hp}"/>
+    </Action>
+    <Condition ID="CheckSentryHP" editable="true">
+      <input_port name="sentry_hp" default="{sentry_hp}"/>
+      <input_port name="threshold" default="60"/>
+    </Condition>
+    <Condition ID="CheckAllowance17mm" editable="true">
+      <input_port name="allowance_17mm" default="{projectile_allowance_17mm}"/>
+      <input_port name="threshold" default="20"/>
+    </Condition>
+  </TreeNodesModel>
+</root>
